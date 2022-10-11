@@ -97,12 +97,17 @@ public class JobData {
         //ArrayList<HashMap<String, String>> allJobs = JobData.findAll();
         ArrayList<HashMap<String, String>> matchingResult = new ArrayList<>();
 
+        //Loop through each row in the csv file
         for (HashMap<String, String> row: allJobs) {
 
 
             for (HashMap.Entry<String, String> column : row.entrySet()) {
                 // entrySet() creates a set out of the same elements contained in hashmap
-                if (column.getValue().toUpperCase().contains(value)) {
+                // and allows me to use getValue() to iterate over key-value pairs
+
+                // If a row contains the value then print that result
+                if (column.getValue().toLowerCase().contains(value.toLowerCase())) {
+                    //pull every row and put it into an arraylist of hash maps
                     if (Arrays.asList(matchingResult).contains(row)) {
                         continue;
                     }
@@ -110,7 +115,6 @@ public class JobData {
                 }
             }
         }
-        // TODO - implement this method
         return matchingResult;
     }
 

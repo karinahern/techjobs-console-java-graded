@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -59,6 +60,7 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
+                searchTerm = searchTerm.toLowerCase();
 
                 if (searchField.equals("all")) {
                     printJobs(JobData.findByValue(searchTerm));
@@ -118,18 +120,25 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        if(someJobs.size() > 0){
 
-            for(HashMap<String, String> field : someJobs){
-                System.out.println("\n*****");
-               for(HashMap.Entry<String, String> data : field.entrySet()){
-                   String key = data.getKey();
-                   String value = data.getValue();
-                   System.out.println(key + ": " + value);
-               }
-               System.out.println("*****\n");
+            if (someJobs.size() == 0) {
+                System.out.print("No Results");
+                return;
+            }
+
+            for (HashMap<String, String> job : someJobs) {
+
+                String jobInfo = "\n*****\n";
+
+                for (Map.Entry<String, String> jobColumn: job.entrySet()) {
+                    jobInfo += (jobColumn.getKey() + ": " + jobColumn.getValue() + "\n");
+                }
+
+                jobInfo += "*****";
+
+                System.out.println(jobInfo);
             }
         }
-        else System.out.println("No Results");
+
     }
-}
+
